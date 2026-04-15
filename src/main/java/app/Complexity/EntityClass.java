@@ -1,4 +1,4 @@
-package app;
+package app.Complexity;
 
 public class EntityClass implements Comparable<EntityClass> {
     private int id;
