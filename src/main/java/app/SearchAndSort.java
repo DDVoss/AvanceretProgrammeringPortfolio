@@ -6,10 +6,42 @@ import java.util.*;
 // 1. Leg med kompleksitet
 public class SearchAndSort {
     public static void main(String[] args){
-        int size = 500000;
+        System.out.println("\nMethod binarySearch:");
+        int[] numbers = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
+        int target = 17;
+        int result = binarySearch(numbers, target);
+        System.out.println("Binary Search Result: " + result);
 
-        arrayVsLinked();
-        listVsHash();
+        System.out.println("\n_______________________________\n");
+        System.out.println("Method findSumOfDogs:");
+        String[] dogs = {"Dog", "Cat", "Dog", "Bird", "Dog", "Fish"};
+        findSumOfDogs(dogs);
+
+        System.out.println("\n_______________________________\n");
+        System.out.println("Method findTwoSum:");
+        int[] sum = {1, 2, 3, 4, 5};
+        int targetSum = 7;
+        findTwoSum(sum, targetSum);
+
+        System.out.println("\n_______________________________\n");
+        int size = 500000 + 1;
+
+        System.out.println("*TEST* ___ ADD, GET, REMOVE ___ *TEST*\n");
+        System.out.println("=== ArrayList Performance ===");
+        listTest(new ArrayList<>(), size, 25000, 99);
+
+        System.out.println("\n=== LinkedList Performance ===");
+        listTest(new LinkedList<>(), size, 25000, 99);
+
+        System.out.println("\n*TEST* ___ CONTAINS ___ *TEST*\n");
+
+        System.out.println("=== ArrayList Performance ===");
+        setTest(new ArrayList<>(), size, 25000);
+
+        System.out.println("\n=== HashSet Performance ===");
+        setTest(new HashSet<>(), size, 25000);
+
+        System.out.println("\n*TEST* ___ LIST VS HASH ___ *TEST*\n");
 
         System.out.println("=== HashSet Performance ===");
         treeVsHash(new HashSet<>(), size);
@@ -63,89 +95,86 @@ public class SearchAndSort {
 
     // ArrayList vs LinkedList
 
-    public static void arrayVsLinked(){
+    public static void listTest(List<Integer> list, int size, int index, int element)  {
+        int iterations = 1000;
 
-        int elements = 500000 + 1;
-        ArrayList<Integer> aList = new ArrayList<>();
-        LinkedList<Integer> lList = new LinkedList<>();
-
-        // Populate list with elements
-        for (int i = 0; i < elements; i++){
-            aList.add(i);
-            lList.add(i);
+        // Populate the list
+        for (int i = 0; i < size; i++) {
+            list.add(i);
         }
 
-        // get specific element from list and set
+        // GET
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            list.get(index);
+        }
+        long getTime = (System.currentTimeMillis() - startTime);
+        System.out.println("Get: " + getTime + " ms");
 
-        // Time Array.get
-        long startArray = System.currentTimeMillis();
-        aList.get(25000);
-        long stopArray = System.currentTimeMillis();
-        System.out.println("Arraylist tid: " + (stopArray - startArray) + " ms");
+        // ADD
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            list.add(index, element);
+        }
+        long addTime = (System.currentTimeMillis() - startTime);
+        System.out.println("Add: " + addTime + " ms");
 
-        // Time Linked.get
-        long startLinked = System.currentTimeMillis();
-        lList.get(25000);
-        long stopLinked = System.currentTimeMillis();
-        System.out.println("LinkedList tid; " + (stopLinked - startLinked) + " ms");
-
-
-        // add specific element in the middle to list and set
-        long startArrayAdd = System.currentTimeMillis();
-        aList.add(25000, 99);
-        long stopArrayAdd = System.currentTimeMillis();
-        System.out.println("Arraylist add tid: " + (stopArrayAdd - startArrayAdd) + " ms");
-
-        long startLinkedAdd = System.currentTimeMillis();
-        lList.add(25000, 99);
-        long stopLinkedAdd = System.currentTimeMillis();
-        System.out.println("LinkedList add tid; " + (stopLinkedAdd - startLinkedAdd) + " ms");
-
-        // remove specific element in the middle of the list and set
-        long startArrayRemove = System.currentTimeMillis();
-        aList.remove(25000);
-        long stopArrayRemove = System.currentTimeMillis();
-        System.out.println("Arraylist remove tid: " + (stopArrayRemove - startArrayRemove) + " ms");
-
-        long startLinkedRemove = System.currentTimeMillis();
-        lList.remove(25000);
-        long stopLinkedRemove = System.currentTimeMillis();
-        System.out.println("LinkedList add tid; " + (stopLinkedRemove - startLinkedRemove) + " ms");
+        // REMOVE
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            list.remove(index);
+        }
+        long removeTime = (System.currentTimeMillis() - startTime);
+        System.out.println("Remove: " + removeTime + " ms");
 
         /*
         Forklaring:
-        BLABLABLA
+        ArrayList (.get) tager direkte fat i indeks nummeret O(1)
+        LinkeList tager længere tid fordi den skal gå igennem hver indeks nummer fra starten  O(n)
+        */
+    }
+
+    // Søgning: List vs HashSet
+    public static void setTest(Collection<Integer> collection, int size, int element)  {
+        int iterations = 1000;
+
+        // Populate the set
+        for (int i = 0; i < size; i++) {
+            collection.add(i);
+        }
+
+        // CONTAINS
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            collection.contains(element);
+        }
+        long containsTime = (System.currentTimeMillis() - startTime);
+        System.out.println("Contains: " + containsTime + " ms");
+
+        // CONTAINS ELEMENT NOT IN SET
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            collection.contains(-1);
+        }
+        long notContainsTime = (System.currentTimeMillis() - startTime);
+        System.out.println("Not Contains: " + notContainsTime + " ms");
+
+        /*
+        Forklaring:
+        ArrayList (.contains) skal tjekke hvert element i listen for at finde det, hvilket resulterer i O(n) tid.
+        HashSet (.contains) bruger en hash-funktion til at finde elementet direkte, hvilket resulterer i O(1) tid i gennemsnit.
+        Derfor er HashSet meget hurtigere end ArrayList for contains() operationen, især når elementet ikke er i samlingen.
         */
 
     }
 
-    // Søgning: List vs HashSet
-    public static void listVsHash(){
-        int elements = 500000 + 1;
-        ArrayList<Integer> aList = new ArrayList<>();
-        HashSet<Integer> hSet = new HashSet<>();
-
-        // Populate the data
-        for (int i = 0; i < elements; i++){
-            aList.add(i);
-            hSet.add(i);
-        }
-
-        long StartArrayContains = System.currentTimeMillis();
-        aList.contains(25000);
-        long StopArrayContains = System.currentTimeMillis();
-        System.out.println("Arraylist contains tid: " + (StopArrayContains - StartArrayContains) + " ms");
-
-        long StartHashContains = System.currentTimeMillis();
-        aList.contains(25000);
-        long StopHashContains = System.currentTimeMillis();
-        System.out.println("Hashset contains tid: " + (StopHashContains - StartHashContains) + " ms");
 
 
-    }
 
     // Comparable, equals() og hashcode()
     public static void  treeVsHash(Set<EntityClass> set, int size){
+        int iterations = 20000;
+
         EntityClass[] objects = new EntityClass[size];
         for (int i = 0; i < size; i++){
             objects[i] = new EntityClass(i);
@@ -153,8 +182,8 @@ public class SearchAndSort {
 
         // ADD
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < size; i++){
-            set.contains(objects[i]);
+        for (int i = 0; i < iterations; i++){
+            set.add(objects[i]);
         }
         long addTime = System.currentTimeMillis() - startTime;
         System.out.println("Add: " + (addTime) + " ms");
@@ -162,22 +191,23 @@ public class SearchAndSort {
 
         // FIND
         startTime = System.currentTimeMillis();
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < iterations; i++){
             set.contains(objects[i]);
         }
         long findTime = System.currentTimeMillis() - startTime;
         System.out.println("Find: " + (findTime) + " ms");
 
-        // Forklaring
-
         // REMOVE
         startTime = System.currentTimeMillis();
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < iterations; i++){
             set.remove(objects[i]);
         }
         long removeTime = System.currentTimeMillis() - startTime;
         System.out.println("Remove: " + (removeTime) + " ms");
 
-        // Forklaring
+        /* Forklaring
+        HashSet bruger hashCode() og equals() til at håndtere elementer, hvilket giver O(1) tid for add, find og remove operationer i gennemsnit.
+        TreeSet bruger compareTo() til at holde elementerne i sorteret orden, hvilket resulterer i O(log n) tid for add, find og remove operationer. Derfor vil HashSet generelt være hurtigere end TreeSet for disse operationer, især når der er mange elementer i samlingen.
+         */
     }
 }
