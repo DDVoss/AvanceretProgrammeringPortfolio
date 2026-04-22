@@ -208,6 +208,7 @@ public class SearchAndSort {
         /* Forklaring
         HashSet bruger hashCode() og equals() til at håndtere elementer, hvilket giver O(1) tid for add, find og remove operationer i gennemsnit.
         TreeSet bruger compareTo() til at holde elementerne i sorteret orden, hvilket resulterer i O(log n) tid for add, find og remove operationer. Derfor vil HashSet generelt være hurtigere end TreeSet for disse operationer, især når der er mange elementer i samlingen.
+        Treeset fungere ved at sige er dette større eller mindre end tallet der er vist. Det bliver sat ind og forgrener sig når der kommer mere data.
          */
     }
 }
