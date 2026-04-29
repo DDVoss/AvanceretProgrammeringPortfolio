@@ -1,4 +1,4 @@
-package app.BackTracking.Chess;
+package app.Algorithms.Chess;
 
 public class Main {
 

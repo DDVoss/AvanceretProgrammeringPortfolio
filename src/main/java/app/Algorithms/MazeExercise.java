@@ -1,4 +1,4 @@
-package app.BackTracking;
+package app.Algorithms;
 
 public class MazeExercise {
     static final int N = 6;
@@ -32,7 +32,7 @@ public class MazeExercise {
             return false;
         }
 
-        // Marker den besøgte felt
+        // Marker det besøgte felt
         path[row][col] = 2;
 
         // Har vi nået målet?
