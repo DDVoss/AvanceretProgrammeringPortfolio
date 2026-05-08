@@ -45,21 +45,43 @@ public class Dijkstra {
         // Køen sorterer selv efter dist fordi NodeWithDist implementerer Comparable
         PriorityQueue<NodeWithDist> queue = new PriorityQueue<>();
 
+        Scanner scanner = new Scanner(System.in);
+
         queue.add(new NodeWithDist(source, 0));
         dist.put(source, 0);
 
+        int step = 1;
+        System.out.println("╔════════════════════════════════════════════════════════════╗");
+        System.out.println("║   ALBERT'S COOKIE JOURNEY - Dijkstra's Algorithm Story     ║");
+        System.out.println("║   (Albert is a bit chubby and prefers less cookies!)       ║");
+        System.out.println("╚════════════════════════════════════════════════════════════╝\n");
+        System.out.println("Press ENTER to start Albert's journey...");
+        scanner.nextLine();
+
         while (!queue.isEmpty()) {
+            displayState(queue, visited, dist, step);
+            System.out.println("\nPress ENTER to continue...");
+            scanner.nextLine();
+
             NodeWithDist current = queue.poll();
 
             // Hvis mål noden er fundet bryder den ud af løkken
-            if (current.node.equals(destination)) break;
+            if (current.node.equals(destination)) {
+                System.out.println("\n✓ Albert reached his destination!");
+                break;
+            }
 
             // Hvis node allerede er besøgt går vi videre til næste iteration
-            if (visited.contains(current.node)) continue;
+            if (visited.contains(current.node)) {
+                System.out.println(String.format("Node %s already visited, skipping...", current.node.getName()));
+                continue;
+            }
 
             // Vi er i gang med at undersøge current, så den skal i visited
             // så man ikke vender tilbage til den senere
             visited.add(current.node);
+            System.out.println(String.format("→ Albert is now at node %s (total cookies eaten: %d)",
+                    current.node.getName(), current.dist));
 
             // Vi henter alle nodens naboer ud
             for (Map.Entry<WeightedNode, Integer> entry : current.node.getNeighbors().entrySet())  {
@@ -82,19 +104,59 @@ public class Dijkstra {
                     // I stedet bruger vi dist-mappet til at undgå at putte en dårligere vej i køen overhovedet.
                     // Hvis en forældet NodeWithDist alligevel popper ud, fanger visited-tjekket den.
                     queue.add(new NodeWithDist(next, newDist));
+                    System.out.println(String.format("  → Found path to %s with %d cookies (better than %d)",
+                            next.getName(), newDist, dist.getOrDefault(next, Integer.MAX_VALUE)));
                 }
             }
+
+            step++;
         }
         // Rekonstruer stien via prev
         List<String> path = new ArrayList<>();
-        WeightedNode step = destination;
-        while (step != null)  {
-            path.add(0, step.getName());
-            step = prev.get(step);
+        WeightedNode stepNode = destination;
+        while (stepNode != null)  {
+            path.add(0, stepNode.getName());
+            stepNode = prev.get(stepNode);
         }
 
-        System.out.println("Korteste vej: " + path);
-        System.out.println("Samlet dist: " + dist.get(destination));
+
+        System.out.println("\n╔════════════════════════════════════════════════════════════╗");
+        System.out.println("║                    JOURNEY COMPLETE!                       ║");
+        System.out.println("╚════════════════════════════════════════════════════════════╝");
+        System.out.println(String.format("Albert's path: %s", path));
+        System.out.println(String.format("Total cookies eaten: %d", dist.get(destination)));
+        System.out.println("Albert is happy with this route! 🍪");
+
+        scanner.close();
+    }
+
+    private static void displayState(PriorityQueue<NodeWithDist> queue, Set<WeightedNode> visited,
+                                     Map<WeightedNode, Integer> dist, int step)  {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("STEP: " + step);
+        System.out.println("=".repeat(60));
+
+        System.out.println("\n📋 QUEUE (nodes to visit, sorted by cookies eaten):");
+        if (queue.isEmpty()) {
+            System.out.println("   [empty]");
+        } else {
+            queue.stream()
+                    .sorted(Comparator.comparingInt(n -> n.dist))
+                    .forEach(n -> System.out.println(String.format("   - Node %s: %d cookies", n.node.getName(), n.dist)));
+        }
+        System.out.println("\n✅ VISITED (Albert has been here):");
+        if (visited.isEmpty()) {
+            System.out.println("   [none yet]");
+        } else {
+            visited.stream()
+                    .sorted(Comparator.comparing(WeightedNode::getName))
+                    .forEach(n -> System.out.println(String.format("   - Node %s (cost: %d)", n.getName(), dist.get(n))));
+        }
+
+        System.out.println("\n📊 BEST DISTANCES FOUND SO FAR:");
+        dist.entrySet().stream()
+                .sorted((a, b) -> a.getKey().getName().compareTo(b.getKey().getName()))
+                .forEach(e -> System.out.println(String.format("   - Node %s: %d cookies", e.getKey().getName(), e.getValue())));
     }
 
     // Hjælpeklasse der pakker en node og dens afstand fra startnoden sammen
