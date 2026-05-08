@@ -17,5 +17,5 @@ public class WeightedNode {
 
     public Map<WeightedNode, Integer> getNeighbors()  { return neighbors; }
 
-    public void addNeighbor(WeightedNode neighbor, int weight)  { neighbors.put(neighbor, weight); }
+    public void addNeighbor(WeightedNode neighbor, int cookies)  { neighbors.put(neighbor, cookies); }
 }

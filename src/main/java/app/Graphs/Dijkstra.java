@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Dijkstra {
     public static void main(String[] args) {
-        WeightedNode S = new WeightedNode("S");
         WeightedNode A = new WeightedNode("A");
         WeightedNode B = new WeightedNode("B");
         WeightedNode C = new WeightedNode("C");
@@ -13,35 +12,24 @@ public class Dijkstra {
         WeightedNode F = new WeightedNode("F");
         WeightedNode G = new WeightedNode("G");
         WeightedNode H = new WeightedNode("H");
-        WeightedNode I = new WeightedNode("I");
-        WeightedNode J = new WeightedNode("J");
-        WeightedNode K = new WeightedNode("K");
-        WeightedNode L = new WeightedNode("L");
-        WeightedNode M = new WeightedNode("M");
 
-        S.addNeighbor(A, 1);
-        S.addNeighbor(B, 3);
-        S.addNeighbor(C, 2);
-        A.addNeighbor(D, 2);
-        B.addNeighbor(D, 5);
-        B.addNeighbor(E, 4);
-        C.addNeighbor(E, 1);
-        C.addNeighbor(F, 3);
+
+        //S.addNeighbor(A, 1);
+
+        A.addNeighbor(B, 1);
+        A.addNeighbor(C, 3);
+        B.addNeighbor(D, 2);
+        C.addNeighbor(E, 2);
+        C.addNeighbor(F, 1);
         D.addNeighbor(G, 3);
-        E.addNeighbor(G, 6);
-        E.addNeighbor(H, 3);
-        F.addNeighbor(I, 2);
-        G.addNeighbor(H, 1);
-        G.addNeighbor(J, 7);
-        H.addNeighbor(J, 2);
-        H.addNeighbor(K, 5);
-        I.addNeighbor(K, 3);
-        I.addNeighbor(L, 4);
-        J.addNeighbor(M, 3);
-        K.addNeighbor(M, 4);
-        L.addNeighbor(M, 8);
+        D.addNeighbor(E, 1);
+        E.addNeighbor(H, 4);
+        F.addNeighbor(H, 3);
+        G.addNeighbor(H, 2);
 
-        findShortestPath(S, M);
+
+
+        findShortestPath(A, H);
     }
 
     public static void findShortestPath(WeightedNode source, WeightedNode destination)  {
