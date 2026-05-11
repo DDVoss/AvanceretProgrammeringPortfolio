@@ -1,4 +1,4 @@
-package app.Graphs;
+package app.Graphs.Dijkstra;
 
 import java.util.*;
 
