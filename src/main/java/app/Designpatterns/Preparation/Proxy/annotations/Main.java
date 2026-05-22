@@ -1,4 +1,4 @@
-package app.Designpatterns.Proxy.annotations;
+package app.Designpatterns.Preparation.Proxy.annotations;
 
 public class Main {
     public static void main(String[] args) {

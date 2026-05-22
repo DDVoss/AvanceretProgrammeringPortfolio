@@ -1,6 +1,4 @@
-package app.Graphs;
-
-import app.Algorithms.CircularLinkedList.Node;
+package app.Graphs.AStar;
 
 import java.util.*;
 

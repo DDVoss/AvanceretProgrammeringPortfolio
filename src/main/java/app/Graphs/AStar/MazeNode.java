@@ -1,4 +1,4 @@
-package app.Graphs;
+package app.Graphs.AStar;
 
 import java.util.ArrayList;
 import java.util.List;

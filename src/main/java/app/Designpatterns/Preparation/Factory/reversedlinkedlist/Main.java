@@ -1,4 +1,4 @@
-package app.Designpatterns.Factory.reversedlinkedlist;
+package app.Designpatterns.Preparation.Factory.reversedlinkedlist;
 
 
 public class Main {

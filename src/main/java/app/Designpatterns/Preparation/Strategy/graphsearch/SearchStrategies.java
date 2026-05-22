@@ -1,4 +1,4 @@
-package app.Designpatterns.Strategy.graphsearch;
+package app.Designpatterns.Preparation.Strategy.graphsearch;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

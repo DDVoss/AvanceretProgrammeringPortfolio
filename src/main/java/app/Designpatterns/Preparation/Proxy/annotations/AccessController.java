@@ -1,4 +1,4 @@
-package app.Designpatterns.Proxy.annotations;
+package app.Designpatterns.Preparation.Proxy.annotations;
 
 import java.lang.reflect.Method;
 

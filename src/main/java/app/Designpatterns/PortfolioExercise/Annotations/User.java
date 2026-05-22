@@ -1,4 +1,4 @@
-package app.Designpatterns.Proxy.annotations;
+package app.Designpatterns.PortfolioExercise.Annotations;
 
 public class User {
     private final String name;

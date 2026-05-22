@@ -1,6 +1,6 @@
-package app.Designpatterns.Proxy.annotations;
+package app.Designpatterns.PortfolioExercise.Annotations;
 
-public class SecureService {
+public class SecureService implements Service{
 
     @Role("admin")
     public void deleteAllUsers() {
