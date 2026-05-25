@@ -6,7 +6,7 @@ public class MergeSort implements SortStrategy{
         mergeSort(arr);
     }
 
-    public static void mergeSort(int[] arr)  {
+    private void mergeSort(int[] arr)  {
         // Base case: hvis arrayet har mindre end 2 elementer, er det allerede sorteret
         if (arr.length < 2)
             return;
@@ -34,7 +34,7 @@ public class MergeSort implements SortStrategy{
         merge(arr, leftHalf, righthalf);
     }
 
-    public static void merge(int[] arr, int[] left, int[]right)  {
+    private void merge(int[] arr, int[] left, int[]right)  {
         int i = 0, l = 0, r = 0;
 
         // Vi sammenligner elementerne i left og right og kopierer det mindste element ind i arr

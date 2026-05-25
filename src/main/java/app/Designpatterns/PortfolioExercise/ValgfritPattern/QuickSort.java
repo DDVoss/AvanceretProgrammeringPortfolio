@@ -6,7 +6,7 @@ public class QuickSort implements SortStrategy{
         quickSort(arr, 0, arr.length - 1);
     }
 
-    public static void quickSort (int arr[], int low, int high)  {
+    private void quickSort (int arr[], int low, int high)  {
         // Base case: hvis low er større eller lig med high, er arrayet sorteret
         // Worst case opstår når pivoten altid er det mindste eller største element, fordi arrayet bliver delt ulighed, og vi får O(n²) kompleksitet i stedet for O(n log n).
         if (low < high)  {
@@ -16,7 +16,7 @@ public class QuickSort implements SortStrategy{
         }
     }
 
-    public static int partition (int arr[], int low, int high)  {
+    private int partition (int arr[], int low, int high)  {
         // Vi vælger det sidste element som pivot
         int pivotValue = arr[high];
         int i = low -1;
@@ -36,7 +36,7 @@ public class QuickSort implements SortStrategy{
     }
 
     // Hjælpefunktion til at bytte elementer i et array
-    public static void swap(int[] arr, int i, int j) {
+    private void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;

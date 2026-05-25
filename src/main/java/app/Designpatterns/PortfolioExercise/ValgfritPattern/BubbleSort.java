@@ -8,7 +8,7 @@ public class BubbleSort implements SortStrategy{
         bubbleSort(arr);
     }
 
-    public static void bubbleSort(int[] arr) {
+    private void bubbleSort(int[] arr) {
         int n = arr.length;
 
         for (int i = 0; i < n - 1; i++)  {
