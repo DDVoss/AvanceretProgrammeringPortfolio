@@ -130,6 +130,8 @@ public class SearchAndSort {
         /*
         Forklaring:
         ArrayList (.get) tager direkte fat i indeks nummeret O(1)
+        ArrayList (.add) skal først rykke alle elementer efter element 25000 en position til højre 0(n)
+        ArrayList (.remove) Skal også rykke alle resterende elementer for at fylde hullet o(n)
         LinkeList tager længere tid fordi den skal gå igennem hver indeks nummer fra starten  O(n)
         */
     }
@@ -209,6 +211,8 @@ public class SearchAndSort {
         HashSet bruger hashCode() og equals() til at håndtere elementer, hvilket giver O(1) tid for add, find og remove operationer i gennemsnit.
         TreeSet bruger compareTo() til at holde elementerne i sorteret orden, hvilket resulterer i O(log n) tid for add, find og remove operationer. Derfor vil HashSet generelt være hurtigere end TreeSet for disse operationer, især når der er mange elementer i samlingen.
         Treeset fungere ved at sige er dette større eller mindre end tallet der er vist. Det bliver sat ind og forgrener sig når der kommer mere data.
+
+        Treeset bruges vis du ønsker at har et sorteret data til at starte med, hvorimod hashset er bedre til at kigge igennem data.
          */
     }
 }
