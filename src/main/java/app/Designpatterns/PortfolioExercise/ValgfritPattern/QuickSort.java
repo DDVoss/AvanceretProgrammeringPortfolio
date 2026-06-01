@@ -11,8 +11,8 @@ public class QuickSort implements SortStrategy{
         // Worst case opstår når pivoten altid er det mindste eller største element, fordi arrayet bliver delt ulighed, og vi får O(n²) kompleksitet i stedet for O(n log n).
         if (low < high)  {
             int pivot = partition(arr, low, high);
-            quickSort(arr, low, pivot -1);
-            quickSort(arr, pivot + 1, high);
+            quickSort(arr, low, pivot -1); // Sorterer venstre
+            quickSort(arr, pivot + 1, high); // Sorterer højre
         }
     }
 
@@ -35,7 +35,6 @@ public class QuickSort implements SortStrategy{
         return i + 1;
     }
 
-    // Hjælpefunktion til at bytte elementer i et array
     private void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];

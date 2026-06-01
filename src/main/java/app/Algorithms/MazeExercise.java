@@ -25,9 +25,10 @@ public class MazeExercise {
     // TODO: Implementer denne metode
     static boolean solveMaze(int row, int col) {
 
+        // Er vi (out of bounds)?
         if (row < 0 || row >= N || col < 0 || col >= N) { return false; }
 
-        // Vis feltet ikke er sikkert
+        // Vis feltet ikke er sikkert. Vis vi rammer en væg = 0 eller har besøgt feltet = 2 return false
         if (maze[row][col] == 0 || path[row][col] == 2) {
             return false;
         }
