@@ -83,7 +83,7 @@ Recursive exploration with state marking:
 
 ### Testing & Running
 - **No unit tests**: Algorithms verified via `main()` method output inspection
-- **Run via Maven**: `mvn clean compile exec:java -Dexec.mainClass="app.Graphs.Dijkstra.Dijkstra"`
+- **Run via Maven**: `mvn clean compile exec:java -Dexec.mainClass="app.Graphs.Dijkstra.DijkstraGuided"`
 - **No build profiles or test phases**: Single standard build
 
 ### Unused Code Pattern
