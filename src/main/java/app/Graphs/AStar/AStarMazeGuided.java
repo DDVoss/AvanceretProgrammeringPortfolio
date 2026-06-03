@@ -2,7 +2,7 @@ package app.Graphs.AStar;
 
 import java.util.*;
 
-public class AStarMaze {
+public class AStarMazeGuided {
 
     // Nordby = 2
     // Sydby = 3
@@ -79,15 +79,6 @@ public class AStarMaze {
                 + Math.abs(destination.getCol() - node.getCol());
     }
 
-    private static String heuristicExplanation(MazeNode node, MazeNode destination)  {
-        int rowDiff = Math.abs(destination.getRow() - node.getRow());
-        int colDiff = Math.abs(destination.getCol() - node.getCol());
-        int hCost = rowDiff + colDiff;
-        return String.format("|%d - %d| + |%d - %d| = %d + %d = %d",
-                destination.getRow(), node.getRow(),
-                destination.getCol(), node.getCol(),
-                rowDiff, colDiff, hCost);
-    }
 
     public static void findShortestPath(MazeNode source, MazeNode destination)  {
         Map<MazeNode, MazeNode> prev = new HashMap<>();

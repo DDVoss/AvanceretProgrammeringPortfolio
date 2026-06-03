@@ -35,6 +35,7 @@ public class MergeSort implements SortStrategy{
     }
 
     private void merge(int[] arr, int[] left, int[]right)  {
+        // i fortæller hvor vi skal placere det næste element i arrayet, l og r fortæller hvilket position af left/right arrayet vi er
         int i = 0, l = 0, r = 0;
 
         // Vi sammenligner elementerne i left og right og kopierer det mindste element ind i arr

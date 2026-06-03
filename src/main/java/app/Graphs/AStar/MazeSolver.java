@@ -1,4 +1,4 @@
-package app.Designpatterns.PortfolioExercise.AStar;
+package app.Graphs.AStar;
 
 import java.util.*;
 
@@ -41,7 +41,7 @@ public class MazeSolver {
                 for (int[] d : directions) {
                     int nr = r + d[0], nc = c + d[1];
                     if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && nodes[nr][nc] != null) {
-                        nodes[r][c].addNeighbor(nodes[nr][nc]);
+                        nodes[r][c].addNeighbors(nodes[nr][nc]);
                     }
                 }
             }
@@ -53,24 +53,30 @@ public class MazeSolver {
         findShortestPath(source, destination);
     }
 
+    // Manhattan-afstand som heuristik
+    private static int heuristic(MazeNode node, MazeNode destination) {
+        return Math.abs(destination.getRow() - node.getRow())
+                + Math.abs(destination.getCol() - node.getCol());
+    }
 
     public static void findShortestPath(MazeNode source, MazeNode destination) {
-        DistanceMetric distanceMetric = new ManhattanDistance();
         Map<MazeNode, MazeNode> prev = new HashMap<>();
         Map<MazeNode, Integer> dist = new HashMap<>();
         Set<MazeNode> visited = new HashSet<>();
 
         PriorityQueue<NodeWithDist> queue = new PriorityQueue<>();
-        queue.add(new NodeWithDist(source, 0, distanceMetric.heuristic(source, destination)));
+        queue.add(new NodeWithDist(source, 0, heuristic(source, destination)));
         dist.put(source, 0);
 
         while (!queue.isEmpty()) {
-            NodeWithDist current = queue.poll();
+            NodeWithDist current = queue.poll(); // Gripper fat i node med lavest F Cost (billigste)
 
-            if (current.node.equals(destination)) break;
-            if (visited.contains(current.node)) continue;
-            visited.add(current.node);
+            if (current.node.equals(destination)) break; // Har vi nået destinationen?
+            if (visited.contains(current.node)) continue; // Har vi besøgt den før?
+            visited.add(current.node); // Vi tilføjer til visited
 
+
+            // Vi tager fat i current/source naboer
             for (MazeNode next : current.node.getNeighbors()) {
                 if (visited.contains(next)) continue;
 
@@ -80,7 +86,7 @@ public class MazeSolver {
                 if (newDist < dist.getOrDefault(next, Integer.MAX_VALUE)) {
                     dist.put(next, newDist);
                     prev.put(next, current.node);
-                    queue.add(new NodeWithDist(next, newDist, distanceMetric.heuristic(next, destination)));
+                    queue.add(new NodeWithDist(next, newDist, heuristic(next, destination)));
                 }
             }
         }
